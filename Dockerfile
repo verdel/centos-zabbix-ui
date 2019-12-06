@@ -1,5 +1,5 @@
 FROM verdel/centos-base:latest
-MAINTAINER Vadim Aleksandrov <valeksandrov@me.com>
+LABEL maintainer="Vadim Aleksandrov <valeksandrov@me.com>"
 
 ENV DB_HOST localhost
 ENV DB_PORT 3306
@@ -13,14 +13,16 @@ ENV HTTP_FQDN localhost
 COPY rootfs /
 
 # Install zabbix
-RUN yum install -y https://repo.zabbix.com/zabbix/4.2/rhel/7/x86_64/zabbix-release-4.2-1.el7.noarch.rpm && \
-    yum install -y zabbix-web-mysql && \
+RUN dnf install -y https://repo.zabbix.com/zabbix/4.2/rhel/8/x86_64/zabbix-release-4.2-2.el8.noarch.rpm && \
+    dnf install -y zabbix-web-mysql && \
+    sed -i "s/;\sphp_value\[date.timezone\]\s=.*/php_value\[date.timezone\] = \"Europe\/Moscow\"/" /etc/php-fpm.d/zabbix.conf && \
+    sed -i "s/;clear_env\s=.*/clear_env = no/" /etc/php-fpm.d/www.conf && \
     # Clean up
-    yum clean all && \
+    dnf clean all && \
     rm -rf \
     /usr/share/man \
     /tmp/* \
-    /var/cache/yum \
+    /var/cache/dnf \
     /etc/httpd/conf.d/welcome.conf && \
     chown apache:apache /etc/zabbix/web/zabbix.conf.php
 
