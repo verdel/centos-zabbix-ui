@@ -7,6 +7,7 @@ $DB["PORT"]          = '{{DB_PORT}}';
 $DB["DATABASE"]   = 'zabbix';
 $DB["USER"]    = '{{DB_USER}}';
 $DB["PASSWORD"]   = '{{DB_PASS}}';
+$DB['DOUBLE_IEEE754'] = 'true';
 // SCHEMA is relevant only for IBM_DB2 database
 $DB["SCHEMA"]   = '';
 $ZBX_SERVER          = '{{ZABBIX_SERVER}}';

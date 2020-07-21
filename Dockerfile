@@ -13,8 +13,8 @@ ENV HTTP_FQDN localhost
 COPY rootfs /
 
 # Install zabbix
-RUN dnf install -y https://repo.zabbix.com/zabbix/4.2/rhel/8/x86_64/zabbix-release-4.2-2.el8.noarch.rpm && \
-    dnf install -y zabbix-web-mysql && \
+RUN dnf install -y https://repo.zabbix.com/zabbix/5.0/rhel/8/x86_64/zabbix-release-5.0-1.el8.noarch.rpm && \
+    dnf install -y httpd zabbix-web-mysql && \
     sed -i "s/;\sphp_value\[date.timezone\]\s=.*/php_value\[date.timezone\] = \"Europe\/Moscow\"/" /etc/php-fpm.d/zabbix.conf && \
     sed -i "s/;clear_env\s=.*/clear_env = no/" /etc/php-fpm.d/www.conf && \
     # Clean up
